@@ -10,13 +10,12 @@ class TunedArguments:
         parser = argparse.ArgumentParser(
             description='This is test description',
             usage='''tuned <command> [<args>]
-
-            url             Stream this YouTube URL
-            ''',
+            download             Download YouTube video
+            stream               Stream YouTube video''',
             epilog='This is test epilog'
         )
         parser.add_argument('command',
-                            help='Subcommands to run [url]')
+                            help=argparse.SUPPRESS)
         parser.add_argument('--version',
                             action='version',
                             version=__version__)
@@ -28,28 +27,28 @@ class TunedArguments:
         getattr(self, args.command)()
 
 
-    def url(self):
-        parser = argparse.ArgumentParser(
-            description='Download or stream this URL',
-            usage='''
-            --download Download audio of this URL
-            '''
-        )
-        parser.add_argument('urls',
-                            nargs='+')
-        parser.add_argument('--download',
-                            action='store_true',
-                            help='Download songs')
+    def download(self):
+        parser = argparse.ArgumentParser(description='Download this URL')
+        parser.add_argument('--urls',
+                            nargs='+',
+                            help='YouTube video URLs')
         parser.add_argument('--path',
                             action='store',
                             type=str,
                             default='~/Music',
                             help='Download songs directory (default: ~/Music)')
-        parser.add_argument('--stream', )
         args = parser.parse_args(sys.argv[2:])
         urls = ValidateURLs().validate_url(args.urls)
 
         # call download function here
-        if args.download:
-            stream_link = YoutubeHelper(urls).download_audio(args.path)
-            #print(stream_link)
+        start_download = YoutubeHelper(urls).download_audio(args.path)
+
+
+    def stream(self):
+        parser = argparse.ArgumentParser(description='Stream URL(s)')
+        parser.add_argument('--urls',
+                            nargs='+',
+                            help='YouTube video URLs')
+        args = parser.parse_args(sys.argv[2:])
+        urls = ValidateURLs().validate_url(args.urls)
+        start_stream = YoutubeHelper(urls).start_streaming()
