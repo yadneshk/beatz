@@ -51,4 +51,5 @@ class TunedArguments:
                             help='YouTube video URLs')
         args = parser.parse_args(sys.argv[2:])
         urls = ValidateURLs().validate_url(args.urls)
+        #print('pause - p, mute audio - m')
         start_stream = YoutubeHelper(urls).start_streaming()
