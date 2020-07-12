@@ -1,15 +1,15 @@
-from .execute import ValidateURLs
-import argparse, sys
-from .version import __version__
-from .youtube_helper import YoutubeHelper
+from beatz.execute import ValidateURLs
+from beatz.version import __version__
+from beatz.youtube_helper import YoutubeHelper
+import argparse
+import sys
 
-#url = 'https://www.youtube.com/watch?v=5wyW-w1ikK0'
 
-class TunedArguments:
+class BeatzArguments:
     def __init__(self):
         parser = argparse.ArgumentParser(
             description='This is test description',
-            usage='''tuned <command> [<args>]
+            usage='''beatz <command> [<args>]
             download             Download YouTube video
             stream               Stream YouTube video''',
             epilog='This is test epilog'
@@ -51,5 +51,4 @@ class TunedArguments:
                             help='YouTube video URLs')
         args = parser.parse_args(sys.argv[2:])
         urls = ValidateURLs().validate_url(args.urls)
-        #print('pause - p, mute audio - m')
         start_stream = YoutubeHelper(urls).start_streaming()

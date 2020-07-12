@@ -1,7 +1,8 @@
-from .execute import BackgroundActions as bkg_actions
-import validators, subprocess
+from beatz.execute import BackgroundActions as bkg_actions
+from beatz.player import Player
+import validators
+import subprocess
 
-from .player import Player
 
 class YoutubeHelper:
     def __init__(self, urls):

@@ -1,4 +1,2 @@
 youtube-dl
-beautifulsoup4
-lxml
 validators

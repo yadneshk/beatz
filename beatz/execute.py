@@ -1,4 +1,6 @@
-import subprocess, validators, threading, urllib.request, requests
+import subprocess
+import validators
+
 
 class BackgroundActions:
     def execute(self, command):

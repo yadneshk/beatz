@@ -1,7 +1,10 @@
-import youtube_dl, sys, subprocess
+import youtube_dl
+import sys
+import subprocess
 
 TYELLOW = '\033[33m'
 TWHITE = '\033[37m'
+
 
 class Player:
     def __init__(self):
