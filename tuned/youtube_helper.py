@@ -9,8 +9,9 @@ class YoutubeHelper:
 
 
     def start_streaming(self):
+        player = Player()
         for url in self.urls:
-            Player().play_song(url)
+            player.play_song(url)
 
 
     def download_audio(self, path):

@@ -21,7 +21,7 @@ class ValidateURLs:
                     print("Excluding \'%s\' - Invalid url" % url)
                     urls.remove(url)
                     break
-                if '&list' and '&index' in url:
+                if '&list' in url:
                     urls[index] = url.split('&')[0]
             if urls:
                 return urls
