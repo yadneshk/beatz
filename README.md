@@ -1,21 +1,27 @@
 # Beatz - Play music on Terminal
 
-# Installation
-
-* Install the below packages
+# Install dependencies first
 ~~~
 $ sudo yum install ffmpeg mpv
 ~~~
 
-* Create a python3 virtual environment
+# Install Beatz from PyPi
+~~~
+ $ pip install beatz
+~~~
+
+# To build the project locally
+
+- Clone the project
+~~~
+$ git clone https://github.com/yadneshk/beatz.git
+~~~
+- Create a virtual environment
 ~~~
 python3 -m venv env
 source env/bin/activate
 ~~~
-
-* Install python modules
+- Install required python modules
 ~~~
 $ pip install -e .
 ~~~
-
-That's it!
