@@ -1,6 +1,6 @@
 from beatz.execute import ValidateURLs
 from beatz.version import __version__
-from beatz.youtube_helper import YoutubeHelper
+from beatz.youtube_helper import YoutubeHelper, YoutubeSearch
 import argparse
 import sys
 
@@ -11,7 +11,8 @@ class BeatzArguments:
             description='This is test description',
             usage='''beatz <command> [<args>]
             download             Download YouTube video
-            stream               Stream YouTube video''',
+            stream               Stream YouTube video
+            search               Query song or artist on YouTube''',
             epilog='This is test epilog'
         )
         parser.add_argument('command',
@@ -52,3 +53,12 @@ class BeatzArguments:
         args = parser.parse_args(sys.argv[2:])
         urls = ValidateURLs().validate_url(args.urls)
         start_stream = YoutubeHelper(urls).start_streaming()
+
+
+    def search(self):
+        parser = argparse.ArgumentParser(description='Query song or artist on YouTube')
+        parser.add_argument('query', type=str, action='store', help='song or artist')
+        parser.add_argument('--results', type=int, default=5, action='store', help='number of results')
+        args = parser.parse_args(sys.argv[2:])
+        results = YoutubeSearch(args.query, max_results=args.results).to_json()
+        print(results)
