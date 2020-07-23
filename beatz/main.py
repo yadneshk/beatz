@@ -8,11 +8,10 @@ import sys
 class BeatzArguments:
     def __init__(self):
         parser = argparse.ArgumentParser(
-            description='This is test description',
+            description='Download & Stream songs from YouTube',
             usage='''beatz <command> [<args>]
             download             Download YouTube video
-            stream               Stream YouTube video''',
-            epilog='This is test epilog'
+            stream               Stream YouTube video'''
         )
         parser.add_argument('command',
                             help=argparse.SUPPRESS)
