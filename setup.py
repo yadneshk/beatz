@@ -1,3 +1,9 @@
+import sys
+
+if sys.version_info < (3,0):
+    sys.exit("Beatz requires python 3.")
+
+
 from setuptools import setup
 from beatz.version import __version__
 
@@ -14,7 +20,7 @@ setup(
     packages=['beatz'],
     url='https://github.com/yadneshk/beatz',
     install_requires=list(runtime),
-    entry_points={'console_scripts': ['beatz=beatz.main:BeatzArguments']},
+    entry_points={'console_scripts': ['beatz=beatz.main:main']},
     author='yadneshk',
     author_email='yadnesh45@gmail.com',
     version=__version__,

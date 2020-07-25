@@ -1,5 +1,6 @@
 import subprocess
 import validators
+import sys
 
 
 class BackgroundActions:
@@ -31,3 +32,37 @@ class ValidateURLs:
                 exit(1)
         if not url:
             return 'Empty URL'
+
+
+    def validate_song_input(self, input, max_results):
+        opts = input.split(',')
+        cnf = []
+        for opt in opts:
+            try:
+                cnf.append(int(opt))
+            except ValueError:
+                if '-' not in opt:
+                    print(f"{opt} does not seem to be an integer")
+                    sys.exit(1)
+                vals = opt.split('-')
+                if len(vals) != 2:
+                    print(f"{opt} has incorrect syntax")
+                    sys.exit(1)
+                try:
+                    for a in vals:
+                        int(a)
+                except ValueError:
+                    print(f"'{opt}' does not seem to an integer")
+                    sys.exit(1)
+                if int(vals[1]) < int(vals[0]):
+                    print(f"{opt} has incorrect syntax")
+                    sys.exit(1)
+                for i in range(int(vals[0]), int(vals[1])+1):
+                    cnf.append(i)
+        _cnf = []
+        for no in cnf:
+            if no <= max_results:
+                _cnf.append(no)
+            else:
+                print(f"[{no}] does not lie in the result. Ignoring..")
+        return _cnf

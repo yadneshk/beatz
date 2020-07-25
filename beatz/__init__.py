@@ -1,7 +1,7 @@
 from .version import __version__
 
-name = "beatz"
+#name = "beatz"
 
-__all__ = [
-    'main'
-]
+#__all__ = [
+#    'main'
+#]
