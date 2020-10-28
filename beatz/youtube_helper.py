@@ -11,12 +11,10 @@ class YoutubeHelper:
     def __init__(self, urls):
         self.urls = urls
 
-
     def start_streaming(self):
         player = Player()
         for url in self.urls:
             player.play_song(url)
-
 
     def download_audio(self, path):
         print('Saving into %s' % path)
@@ -37,44 +35,31 @@ class YoutubeSearch:
         self.max_results = max_results
         self.videos = self.search()
 
-
     def search(self):
         encoded_search = urllib.parse.quote(self.search_terms)
         BASE_URL = "https://youtube.com"
         url = f"{BASE_URL}/results?search_query={encoded_search}"
         response = requests.get(url).text
-        while 'window["ytInitialData"]' not in response:
-            response = requests.get(url).text
-        results = self.parse_html(response)
+        trimmed_content_start = response[response.find('ytInitialData')+16:]
+        final_trimmed_content = trimmed_content_start[:trimmed_content_start.find('};')+1]
+        results = self.parse_html(final_trimmed_content)
         return results
-
 
     def parse_html(self, response):
         results = {}
-        start = (
-            response.index('window["ytInitialData"]')
-            + len('window["ytInitialData"]')
-            + 3
-        )
-        end = response.index("};", start) + 1
-        json_str = response[start:end]
-        data = json.loads(json_str)
+        data = json.loads(response)
         videos = data["contents"]["twoColumnSearchResultsRenderer"]["primaryContents"][
             "sectionListRenderer"
         ]["contents"][0]["itemSectionRenderer"]["contents"]
-        count = 1
-        for video in videos:
+        for count, video in enumerate(videos):
             res = {}
-            if "videoRenderer" in video.keys() and count <= self.max_results:
+            if "videoRenderer" in video.keys() and (count+1 <= self.max_results):
                 video_data = video.get("videoRenderer", {})
-                #res["id"] = count
                 res["title"] = video_data.get("title", {}).get("runs", [[{}]])[0].get("text", None).strip()
                 res["duration"] = video_data.get("lengthText", {}).get("simpleText", 0).strip()
                 res["url_suffix"] = video_data.get("navigationEndpoint", {}).get("commandMetadata", {}).get("webCommandMetadata", {}).get("url", None).strip()
-                results[count] = res
-                count += 1
+                results[count+1] = res
         return results
-
 
     def to_dict(self):
         return self.videos
