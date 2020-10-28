@@ -31,7 +31,7 @@ class Beatz(object):
 
     def download(self):
         parser = argparse.ArgumentParser(description='Download this URL')
-        parser.add_argument('--urls',
+        parser.add_argument('urls',
                             nargs='+',
                             help='YouTube video URLs')
         parser.add_argument('--path',
@@ -48,7 +48,7 @@ class Beatz(object):
 
     def stream(self):
         parser = argparse.ArgumentParser(description='Stream URL(s)')
-        parser.add_argument('--urls',
+        parser.add_argument('urls',
                             nargs='+',
                             help='YouTube video URLs')
         args = parser.parse_args(sys.argv[2:])

@@ -18,8 +18,8 @@ $ git clone https://github.com/yadneshk/beatz.git
 ~~~
 - Create a virtual environment
 ~~~
-python3 -m venv env
-source env/bin/activate
+$ python3 -m venv env
+$ source env/bin/activate
 ~~~
 - Install required python modules
 ~~~
